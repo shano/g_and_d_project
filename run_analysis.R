@@ -2,13 +2,14 @@ library(data.table)
 library(tractor.base)
 library(sqldf)
 
-### DOWNLOAD DATA ###
-if(!file.exists('./dataset')) { 
-        dir.create('./dataset') 
+### DOWNLOAD DATA AND PREP ###
+if(!file.exists('./dataset.zip')) { 
         download.file('https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip', 'dataset.zip', method="curl")
-        unz('dataset.zip', 'dataset')
 }
-
+if(!file.exists('./dataset')) { 
+        unzip('./dataset.zip')
+        file.rename('./UCI HAR dataset','./dataset')
+}
 
 ### READ IN DATA ###
 features <- read.table('./dataset/features.txt', sep="")
